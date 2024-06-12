@@ -17,7 +17,6 @@ from transformers.utils import logging
 torch.manual_seed(42)
 
 if __name__ == "__main__":
-    access_token = "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"
 
     # logging.set_verbosity_error()
     logger = logging.get_logger("transformers")
@@ -28,7 +27,7 @@ if __name__ == "__main__":
 
     set_seed(args.seed)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name, token=access_token)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
@@ -55,7 +54,6 @@ if __name__ == "__main__":
 
     model = AutoModelForCausalLM.from_pretrained(args.model_name,
                                                  torch_dtype=torch.bfloat16,
-                                                 token=access_token,
                                                  device_map = 'cuda')
     print('Loaded model!')
 

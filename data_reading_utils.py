@@ -76,8 +76,7 @@ if __name__ == "__main__":
     tables_path = "/home/somov/text2sql_llama_3/data/pauq/tables.json"
 
     model_name = "codellama/CodeLlama-7b-Instruct-hf"
-    access_token = "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"
-    tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=access_token)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
     # tokenizer.padding_side = "right"
     MAX_LENGTH = 1024
