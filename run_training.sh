@@ -8,7 +8,7 @@ dataset_name="pauq"
 split_name="pauq_xsp"
 CUDA_DEVICE_NUMBER='0'
 seed=1
-run_explain_name="llama_meta_template_sft"
+run_explain_name="sft_v3"
 
 
 if [ "$dataset_name" = "pauq" ];
@@ -28,16 +28,18 @@ log_dir="$saving_path/training_logs"
 
 input_seq_length=1024
 output_seq_length=256
-train_batch_size=1
-eval_batch_size=32
-gradient_accumulation_steps=16
-epochs_number=6
-lr="1e-4"
+train_batch_size=4
+eval_batch_size=4
+gradient_accumulation_steps=4
+eval_accumulation_steps=4
+epochs_number=20
+lr="1e-5"
 
 tmux new-session -d -s $run_name
 
 tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 train_llm.py \
     --model_name $llama3_model_path \
+    --use_lora \
     --sql_dataset_name $dataset_name \
     --path_to_training_file $path2train \
     --path_to_testing_file $path2test \
@@ -45,7 +47,7 @@ tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/so
     --learning_rate $lr \
     --seed $seed \
     --per_device_train_batch_size $train_batch_size \
-    --per_device_eval_batch_size $eval_batch_size \
+    --per_device_eval_batch_size $eval_accumulation_steps \
     --gradient_accumulation_steps $gradient_accumulation_steps \
     --max_seq_length $input_seq_length \
     --report_to 'tensorboard' \
@@ -58,6 +60,7 @@ tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/so
 trained_model_path="$saving_path/final_checkpoints"
 tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
     --model_name $trained_model_path \
+    --use_lora \
     --sql_dataset_name $dataset_name \
     --path_to_testing_file $path2test \
     --tables_info_path $tables_path \

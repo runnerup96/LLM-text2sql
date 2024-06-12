@@ -1,6 +1,6 @@
 #!/bin/bash
 
-llama3_model_path="/home/somov/text2sql_llama_3/experiments/pauq_pauq_xsp_s1/final_checkpoints"
+llama3_model_path="/home/somov/text2sql_llama_3/experiments/pauq_pauq_xsp_s1_sft_v1/final_checkpoints"
 project_path="/home/somov/text2sql_llama_3"
 data_dir="data"
 experiments_folder="experiments"
@@ -8,12 +8,12 @@ dataset_name="pauq"
 split_name="pauq_xsp"
 CUDA_DEVICE_NUMBER='0'
 seed=1
-run_explain_name="sft_model_infer_train"
+run_explain_name="sft_v1_model_infer_train"
 
 
 if [ "$dataset_name" = "pauq" ];
 then
-  path2test="$project_path/$data_dir/$dataset_name/${split_name}_train.json"
+  path2test="$project_path/$data_dir/$dataset_name/${split_name}_test.json"
   saving_path="$project_path/$experiments_folder/${dataset_name}_${split_name}_s${seed}_${run_explain_name}"
   run_name="infer_${dataset_name}_${split_name}_s${seed}_${run_explain_name}"
 else
@@ -26,11 +26,7 @@ log_dir="$saving_path/training_logs"
 
 input_seq_length=1024
 output_seq_length=256
-train_batch_size=4
-eval_batch_size=4
-gradient_accumulation_steps=32
-epochs_number=118
-lr="1e-4"
+eval_batch_size=1
 
 tmux new-session -d -s $run_name
 

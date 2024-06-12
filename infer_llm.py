@@ -50,19 +50,16 @@ if __name__ == "__main__":
     model.generation_config.pad_token_ids = tokenizer.pad_token_id
 
     # read test data
-
     testing_sft_dataset = []
     if args.sql_dataset_name == "pauq":
-        testing_sft_dataset = data_reading_utils.create_pauq_sft_dataset_v2(args.path_to_testing_file,
+        testing_sft_dataset = data_reading_utils.create_pauq_sft_dataset(args.path_to_testing_file,
                                                                             args.tables_info_path,
                                                                             tokenizer,
                                                                              phase="test",
                                                                              try_one_batch=args.try_one_batch)
     elif args.sql_dataset_name == "ehrsql":
-        testing_sft_dataset = data_reading_utils.create_ehrsql_sft_dataset(args.path_to_testing_file,
-                                                                           args.tables_info_path,
-                                                                           phase="test",
-                                                                           try_one_batch=args.try_one_batch)
+        pass
+
     testing_sft_dataset = text2sql_dataset.Text2SQLDataset(testing_sft_dataset, tokenizer, args.max_seq_length, device)
     print(f'Total testing samples = {len(testing_sft_dataset)}')
 
@@ -90,7 +87,8 @@ if __name__ == "__main__":
                                                             tokenizer=tokenizer)
             max_entropy_scores = [max(score_list) for score_list in entropy_scores]
             scores_list += max_entropy_scores
-            decoded_preds = tokenizer.batch_decode(generated_sequences[:, input_length:], skip_special_tokens=True)
+            decoded_preds = tokenizer.batch_decode(generated_sequences[:, input_length:],
+                                                   skip_special_tokens=True, clean_up_tokenization_spaces=False)
             predictions = [data_reading_utils.generated_query_simple_processor(pred) for pred in decoded_preds]
             prediction_list += predictions
             ids_list += sample_id

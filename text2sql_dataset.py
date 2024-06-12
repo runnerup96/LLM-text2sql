@@ -7,7 +7,8 @@ class Text2SQLDataset(Dataset):
         self.prompts_ids = [sample['id'] for sample in sft_dataset]
         prompts_list = [sample['text'] for sample in sft_dataset]
         self.tokenized_prompts = tokenizer(prompts_list, max_length=max_length,
-                                           truncation=True, padding=True, return_tensors='pt')
+                                           truncation=True, padding=True, add_special_tokens=False,
+                                           return_tensors='pt')
         self.device = device
 
     def __len__(self):

@@ -11,7 +11,7 @@ from transformers import (
 import data_reading_utils
 from cmd_line_arguments import ScriptArguments
 from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
-import logging
+from transformers.utils import logging
 
 
 torch.manual_seed(42)
@@ -19,7 +19,9 @@ torch.manual_seed(42)
 if __name__ == "__main__":
     access_token = "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"
 
-    logger = logging.getLogger(__name__)
+    # logging.set_verbosity_error()
+    logger = logging.get_logger("transformers")
+
 
     parser = HfArgumentParser(ScriptArguments)
     args = parser.parse_args_into_dataclasses()[0]
@@ -33,24 +35,21 @@ if __name__ == "__main__":
     # read data
     training_sft_dataset, testing_sft_dataset = [], []
     if args.sql_dataset_name == "pauq":
-        training_sft_dataset = data_reading_utils.create_pauq_sft_dataset_v2(args.path_to_training_file,
+        training_sft_dataset = data_reading_utils.create_pauq_sft_dataset(args.path_to_training_file,
                                                                           args.tables_info_path,
                                                                             tokenizer,
                                                                           phase="train",
                                                                           try_one_batch=args.try_one_batch,
                                                                           batch_size=args.per_device_train_batch_size)
-        testing_sft_dataset = data_reading_utils.create_pauq_sft_dataset_v2(args.path_to_testing_file,
+        testing_sft_dataset = data_reading_utils.create_pauq_sft_dataset(args.path_to_testing_file,
                                                                           args.tables_info_path,
                                                                             tokenizer,
                                                                           phase="train",
                                                                           try_one_batch=args.try_one_batch,
                                                                           batch_size=args.per_device_train_batch_size)
     elif args.sql_dataset_name == "ehrsql":
-        training_sft_dataset = data_reading_utils.create_ehrsql_sft_dataset(args.path_to_training_file,
-                                                                            args.tables_info_path,
-                                                                            "train",
-                                                                            try_one_batch=args.try_one_batch,
-                                                                            batch_size=args.per_device_train_batch_size)
+        pass
+
     print('Training samples total size: ', len(training_sft_dataset))
     # model
 
@@ -83,7 +82,7 @@ if __name__ == "__main__":
 
     #approx log every 10 steps
     logging_steps = 10
-    eval_steps = 500
+    eval_steps = 1000
     #approx save on every epoch
     save_steps=num_update_steps_per_epoch
 
@@ -93,6 +92,7 @@ if __name__ == "__main__":
         per_device_train_batch_size=args.per_device_train_batch_size,
         per_device_eval_batch_size=args.per_device_eval_batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
+        eval_accumulation_steps=args.gradient_accumulation_steps,
         optim="adamw_torch",
         save_steps=save_steps,
         logging_steps=logging_steps,
@@ -112,9 +112,9 @@ if __name__ == "__main__":
         save_total_limit=1
     )
 
-    response_template = f"{data_reading_utils.RESPONSE_TEMPLATE}"
-    response_template_ids = tokenizer.encode(response_template, add_special_tokens=False)[1:]
-    # The "SQL:" is ignored during loss calculation
+    response_template = f"<|start_header_id|>assistant<|end_header_id|>\n\n"
+    response_template_ids = tokenizer.encode(response_template, add_special_tokens=False)
+    # The assistant answer is ignored during loss calculation
     collator = DataCollatorForCompletionOnlyLM(response_template_ids, tokenizer=tokenizer)
 
     trainer = SFTTrainer(
@@ -128,10 +128,6 @@ if __name__ == "__main__":
         args=training_arguments,
         packing=False,
         data_collator=collator,
-        dataset_kwargs={
-            "add_special_tokens": False,
-            "append_concat_token": False
-        }
     )
     print('Begin training!')
     trainer.train()
