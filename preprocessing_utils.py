@@ -41,9 +41,9 @@ def lower(s):
     return out_s
 
 # remove ";"
-def remove_semicolon(s):
-    if s.endswith(";"):
-        s = s[:-1]
+def add_semicolon(s):
+    if not s.endswith(";"):
+        s = s + ';'
     return s
 
 # double quotation -> single quotation
@@ -65,7 +65,8 @@ def normalization(sql):
     :param sql:
     :return:
     """
-    formatted_sql = remove_semicolon(sql)
+    formatted_sql = sql.strip()
+    formatted_sql = add_semicolon(formatted_sql)
     formatted_sql = double2single(formatted_sql)
     formatted_sql = white_space_fix(formatted_sql)
     formatted_sql = lower(formatted_sql)

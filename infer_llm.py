@@ -53,10 +53,11 @@ if __name__ == "__main__":
     testing_sft_dataset = []
     if args.sql_dataset_name == "pauq":
         testing_sft_dataset = data_reading_utils.create_pauq_sft_dataset(args.path_to_testing_file,
-                                                                            args.tables_info_path,
-                                                                            tokenizer,
-                                                                             phase="test",
-                                                                             try_one_batch=args.try_one_batch)
+                                                                        args.tables_info_path,
+                                                                        tokenizer,
+                                                                         phase="test",
+                                                                         try_one_batch=args.try_one_batch,
+                                                                         batch_size=args.per_device_eval_batch_size)
     elif args.sql_dataset_name == "ehrsql":
         pass
 
@@ -71,6 +72,7 @@ if __name__ == "__main__":
             sample_id = batch['id']
             input_length = batch['input_ids'].shape[1]
             outputs = model.generate(input_ids=batch['input_ids'],
+                                    attention_mask=batch['attention_mask'],
                                     max_new_tokens=args.max_new_tokens,
                                     num_beams=args.num_beams,
                                     eos_token_id=terminators,
@@ -117,13 +119,16 @@ if __name__ == "__main__":
 
     pickle.dump(result_dict, open(save_path, 'wb'))
 
-    if args.try_one_batch == False:
-        filename = filename.split('.')[0]
+    filename = filename.split('.')[0]
+
+    if args.try_one_batch:
+        filename = f"{filename}_one_batch_sql_predictions.txt"
+    else:
         filename = f"{filename}_sql_predictions.txt"
-        save_path = os.path.join(output_dir, filename)
-        with open(save_path, 'w') as f:
-            for sql in prediction_list:
-                f.write(f"{sql}\n")
+    save_path = os.path.join(output_dir, filename)
+    with open(save_path, 'w') as f:
+        for sql in prediction_list:
+            f.write(f"{sql}\n")
 
 
 

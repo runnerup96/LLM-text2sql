@@ -24,7 +24,7 @@ def create_pauq_sft_dataset(data_path, tables_info_path, tokenizer, phase='train
         db2schema_str_dict[db_name] = db_string
 
     sft_dataset_list = []
-    for sample in data:
+    for sample in tqdm(data):
         sample_id = sample["id"]
         db_id = sample["db_id"]
         input_text = preprocessing_utils.process_input_question(sample["question"])
@@ -52,7 +52,7 @@ def create_pauq_sft_dataset(data_path, tables_info_path, tokenizer, phase='train
 
         sft_dataset_list.append({'id': sample_id, 'text': formatted_prompt})
     if try_one_batch:
-        sft_dataset_list = sft_dataset_list[-batch_size:]
+        sft_dataset_list = sft_dataset_list[:batch_size]
     sft_dataset = Dataset.from_list(sft_dataset_list)
     return sft_dataset
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     pauq_test_path = "/home/somov/text2sql_llama_3/data/pauq/pauq_xsp_test.json"
     tables_path = "/home/somov/text2sql_llama_3/data/pauq/tables.json"
 
-    model_name = "codellama/CodeLlama-7b-Instruct-hf"
+    model_name = "/home/somov/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/c4a54320a52ed5f88b7a2f84496903ea4ff07b45"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
     # tokenizer.padding_side = "right"

@@ -19,6 +19,12 @@ https://github.com/defog-ai/sqlcoder/blob/main/inference.py
 ### Text2SQL tuning
 https://github.com/philschmid/deep-learning-pytorch-huggingface/blob/main/training/fine-tune-llms-in-2024-with-trl.ipynb
 
+https://www.databricks.com/blog/improving-text2sql-performance-ease-databricks
+
+https://medium.com/@darrenoberst/6-tips-to-becoming-a-master-llm-fine-tuning-chef-143ad735354b
+
+https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms
+
 ### Meta Lllama 3
 https://llama.meta.com/docs/model-cards-and-prompt-formats/meta-llama-3/
 

@@ -6,7 +6,7 @@ data_dir="data"
 experiments_folder="experiments"
 dataset_name="pauq"
 split_name="pauq_xsp"
-CUDA_DEVICE_NUMBER='0'
+CUDA_DEVICE_NUMBER='1'
 seed=1
 run_explain_name="sft_v3"
 
@@ -28,18 +28,17 @@ log_dir="$saving_path/training_logs"
 
 input_seq_length=1024
 output_seq_length=256
-train_batch_size=4
+train_batch_size=1
 eval_batch_size=4
-gradient_accumulation_steps=4
+gradient_accumulation_steps=96
 eval_accumulation_steps=4
-epochs_number=20
+epochs_number=1
 lr="1e-5"
 
 tmux new-session -d -s $run_name
 
 tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 train_llm.py \
     --model_name $llama3_model_path \
-    --use_lora \
     --sql_dataset_name $dataset_name \
     --path_to_training_file $path2train \
     --path_to_testing_file $path2test \
@@ -60,7 +59,6 @@ tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/so
 trained_model_path="$saving_path/final_checkpoints"
 tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
     --model_name $trained_model_path \
-    --use_lora \
     --sql_dataset_name $dataset_name \
     --path_to_testing_file $path2test \
     --tables_info_path $tables_path \
