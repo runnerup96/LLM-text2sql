@@ -59,7 +59,12 @@ if __name__ == "__main__":
                                                                          try_one_batch=args.try_one_batch,
                                                                          batch_size=args.per_device_eval_batch_size)
     elif args.sql_dataset_name == "ehrsql":
-        pass
+        testing_sft_dataset = data_reading_utils.create_ehrsql_sft_dataset(args.path_to_testing_file,
+                                                                         args.tables_info_path,
+                                                                         tokenizer,
+                                                                         phase="test",
+                                                                         try_one_batch=args.try_one_batch,
+                                                                         batch_size=args.per_device_eval_batch_size)
 
     testing_sft_dataset = text2sql_dataset.Text2SQLDataset(testing_sft_dataset, tokenizer, args.max_seq_length, device)
     print(f'Total testing samples = {len(testing_sft_dataset)}')

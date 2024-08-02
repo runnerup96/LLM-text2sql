@@ -15,7 +15,6 @@ from transformers.utils import logging
 import text2sql_dataset
 
 
-torch.manual_seed(42)
 
 if __name__ == "__main__":
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -50,7 +49,19 @@ if __name__ == "__main__":
                                                                           batch_size=args.per_device_train_batch_size)
 
     elif args.sql_dataset_name == "ehrsql":
-        pass
+        training_sft_dataset = data_reading_utils.create_ehrsql_sft_dataset(args.path_to_training_file,
+                                                                          args.tables_info_path,
+                                                                          tokenizer,
+                                                                          phase="train",
+                                                                          try_one_batch=args.try_one_batch,
+                                                                          batch_size=args.per_device_train_batch_size)
+
+        testing_sft_dataset = data_reading_utils.create_ehrsql_sft_dataset(args.path_to_testing_file,
+                                                                         args.tables_info_path,
+                                                                         tokenizer,
+                                                                         phase="train",
+                                                                         try_one_batch=args.try_one_batch,
+                                                                         batch_size=args.per_device_train_batch_size)
 
     tokenized_train_sft_dataset = text2sql_dataset.Text2SQLDataset(sft_dataset=training_sft_dataset,
                                                                    tokenizer=tokenizer, max_length=args.max_seq_length,
