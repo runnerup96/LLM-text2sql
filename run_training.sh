@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #10
-#llama3_model_path="/home/somov/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/c4a54320a52ed5f88b7a2f84496903ea4ff07b45"
+#llama3_model_path="/home/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/c4a54320a52ed5f88b7a2f84496903ea4ff07b45"
 #144
-llama3_model_path="/home/somov/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa"
+llama3_model_path="/home/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa"
 
-project_path="/home/somov/text2sql_llama_3"
+project_path="/home/text2sql_llama_3"
 data_dir="data"
 experiments_folder="experiments"
 dataset_name="pauq"
@@ -52,7 +52,7 @@ epochs_number=1
 
 tmux new-session -d -s $run_name
 
-tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 train_llm.py \
+tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/.conda/envs/llm_tuning/bin/python3 train_llm.py \
     --model_name $llama3_model_path \
     --sql_dataset_name $dataset_name \
     --path_to_training_file $path2train \
@@ -72,7 +72,7 @@ tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/so
     --run_name $run_name" ENTER
 
 trained_model_path="$saving_path/final_checkpoints"
-tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
+tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
     --model_name $trained_model_path \
     --sql_dataset_name $dataset_name \
     --path_to_testing_file $path2test \
