@@ -5,15 +5,15 @@
 
 # run config
 #SBATCH --job-name=sft_lora_tuning       # Название задачи
-#SBATCH --error=/home/etutubalina/somov-od/llm_tuning/cluster_logs/sft_lora_tuning.err        # Файл для вывода ошибок
-#SBATCH --output=/home/etutubalina/somov-od/llm_tuning/cluster_logs/sft_lora_tuning.err       # Файл для вывода результатов
+#SBATCH --error=/home/llm_tuning/cluster_logs/sft_lora_tuning.err        # Файл для вывода ошибок
+#SBATCH --output=/home//llm_tuning/cluster_logs/sft_lora_tuning.err       # Файл для вывода результатов
 #SBATCH --time=48:00:00                      # Максимальное время выполнения
 #SBATCH --nodes=1                           # Требуемое кол-во узлов
 #SBATCH --cpus-per-task=8                   # Количество CPU на одну задачу
 #SBATCH --gpus=8                            # Требуемое кол-во GPU
 
-llama3_model_path="/home/etutubalina/somov-od/llama3/Meta-Llama-3-8B-Instruct/hf_converted"
-project_path="/home/etutubalina/somov-od/text2sql_llama_3"
+llama3_model_path="/home/llama3/Meta-Llama-3-8B-Instruct/hf_converted"
+project_path="/home/text2sql_llama_3"
 data_dir="data"
 experiments_folder="experiments"
 dataset_name="pauq"
