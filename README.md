@@ -7,9 +7,8 @@ This repository contains the code for training and inference of the LLama8 model
 2. [Data](#data)
 3. [Training](#training)
 4. [Inference](#inference)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Contact](#contact)
+5. [License](#license)
+6. [Contact](#contact)
 
 ---
 
