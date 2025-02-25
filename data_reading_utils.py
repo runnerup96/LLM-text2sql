@@ -120,14 +120,14 @@ def generated_query_simple_processor(string):
 if __name__ == "__main__":
     from transformers import AutoTokenizer
 
-    pauq_train_path = "/home/somov/text2sql_llama_3/data/pauq/pauq_xsp_train.json"
-    pauq_test_path = "/home/somov/text2sql_llama_3/data/pauq/pauq_xsp_test.json"
-    tables_path = "/home/somov/text2sql_llama_3/data/pauq/tables.json"
+    pauq_train_path = "/home/text2sql_llama_3/data/pauq/pauq_xsp_train.json"
+    pauq_test_path = "/home/text2sql_llama_3/data/pauq/pauq_xsp_test.json"
+    tables_path = "/home/text2sql_llama_3/data/pauq/tables.json"
 
 
-    ehrsql_train_path = "/home/somov/text2sql_llama_3/data/ehrsql/train"
-    ehrsql_test_path = "/home/somov/text2sql_llama_3/data/ehrsql/test"
-    tables_path = "/home/somov/text2sql_llama_3/data/ehrsql/tables.json"
+    ehrsql_train_path = "/home/text2sql_llama_3/data/ehrsql/train"
+    ehrsql_test_path = "/home/text2sql_llama_3/data/ehrsql/test"
+    tables_path = "/home/text2sql_llama_3/data/ehrsql/tables.json"
 
 
     model_name = "meta-llama/Meta-Llama-3-8B-Instruct"
@@ -154,6 +154,4 @@ if __name__ == "__main__":
         avg_prompt_length += len(encoded_text['input_ids'])
     print('Avg prompt length: ', round(avg_prompt_length / len(sft_dataset), 2))
     print('Number of max length samples: ', number_of_max_length)
-
-
 

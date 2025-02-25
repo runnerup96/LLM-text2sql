@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # (144) Path to HF model locally or remotely on HF
-#llama3_model_path="/home/somov/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa"
-
+# llama3_model_path="/home/somov/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/e1945c40cd546c78e41f1151f4db032b271faeaa"
 # llama3_model_path='Qwen/Qwen2.5-Coder-1.5B-Instruct'
 
 # Path to the project source code
 project_path="/home/somov/text2sql_llama_3"
 # Path to data files, in JSON format
 data_dir="/home/somov/text2sql_datasets"
-# Path, where experiements results will be stored
+# Path, where experiments results will be stored
 experiments_folder="experiments"
 # The name of dataset
 dataset_name="pauq"

@@ -133,6 +133,7 @@ if __name__ == "__main__":
         save_total_limit=1
     )
 
+    # That response template is for LLama3 -- you have to change it if you change the model
     response_template = f"<|start_header_id|>assistant<|end_header_id|>\n\n"
     response_template_ids = tokenizer.encode(response_template, add_special_tokens=False)
     # The assistant answer is ignored during loss calculation

@@ -5,8 +5,8 @@
 
 # run config
 #SBATCH --job-name=llm_test_inference       # Название задачи
-#SBATCH --error=/home/etutubalina/somov-od/text2sql_llama_3/cluster_logs/llm_test_inference.err        # Файл для вывода ошибок
-#SBATCH --output=/home/etutubalina/somov-od/text2sql_llama_3/cluster_logs/llm_test_inference.log       # Файл для вывода результатов
+#SBATCH --error=/home/text2sql_llama_3/cluster_logs/llm_test_inference.err        # Файл для вывода ошибок
+#SBATCH --output=/home/text2sql_llama_3/cluster_logs/llm_test_inference.log       # Файл для вывода результатов
 #SBATCH --time=24:00:00                      # Максимальное время выполнения
 #SBATCH --nodes=1                           # Требуемое кол-во узлов
 #SBATCH --cpus-per-task=8                   # Количество CPU на одну задачу

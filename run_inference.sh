@@ -31,7 +31,7 @@ eval_batch_size=12
 
 tmux new-session -d -s $run_name
 
-tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/somov/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
+tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/.conda/envs/llm_tuning/bin/python3 infer_llm.py \
     --model_name $llama3_model_path \
     --use_lora \
     --sql_dataset_name $dataset_name \

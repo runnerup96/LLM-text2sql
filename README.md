@@ -2,8 +2,6 @@
 
 This repository contains the code for training and inference of the LLama8 model. It includes setup instructions, data preparation details, and steps for running training and inference.
 
----
-
 ## Table of Contents
 1. [Setup](#setup)
 2. [Data](#data)
@@ -22,9 +20,7 @@ To set up the environment, ensure you have **Python 3.10** installed. Install th
 ```bash
 pip install -r requirements.txt
 ```
-
 ---
-
 ## Data
 
 The dataset splits for training and evaluation are available from the following sources:
