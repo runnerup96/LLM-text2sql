@@ -1,31 +1,108 @@
+# LLama8: Training and Inference Code
 
-### Llama Tutrial from HF
-https://huggingface.co/blog/llama3
+This repository contains the code for training and inference of the LLama8 model. It includes setup instructions, data preparation details, and steps for running training and inference.
 
+---
 
+## Table of Contents
+1. [Setup](#setup)
+2. [Data](#data)
+3. [Training](#training)
+4. [Inference](#inference)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Contact](#contact)
 
-### LLama inference
-https://github.com/zsc/llama_infer/blob/main/test_llam.py
+---
 
+## Setup
 
-### Llama 3 training notebook
-https://colab.research.google.com/drive/1TUa9J2J_1Sj-G7mQHX45fKzZtnW3s1vj?usp=sharing#scrollTo=CnHVzTMN4PwA
+To set up the environment, ensure you have **Python 3.10** installed. Install the required libraries using the provided `requirements.txt` file. Better to set up env with **Miniconda**.
 
+```bash
+pip install -r requirements.txt
+```
 
-### Defog ai model inference
-https://github.com/defog-ai/sqlcoder/blob/main/inference.py
+---
 
+## Data
 
-### Text2SQL tuning
-https://github.com/philschmid/deep-learning-pytorch-huggingface/blob/main/training/fine-tune-llms-in-2024-with-trl.ipynb
+The dataset splits for training and evaluation are available from the following sources:
 
-https://www.databricks.com/blog/improving-text2sql-performance-ease-databricks
+### Datasets
+1. **Original PAUQ XSP**  
+   - Repository: [PAUQ XSP](https://github.com/ai-spiderweb/pauq)  
+   - Contains the database and table information for PAUQ XSP.
 
-https://medium.com/@darrenoberst/6-tips-to-becoming-a-master-llm-fine-tuning-chef-143ad735354b
+2. **Compositional PAUQ Template SSP and PAUQ Test Long SSP**  
+   - Google Drive: [Compositional Splits](https://drive.google.com/drive/folders/12cBewVCrBObBb1qgEg1nXHoqq3hHTT7K?usp=sharing)  
+   - Code for preparing compositional splits: [Splitting Strategies](https://github.com/runnerup96/splitting-strategies)  
 
-https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms
+3. **EHRSQL**  
+   - Repository: [EHRSQL](https://github.com/glee4810/ehrsql-2024)  
 
-### Meta Lllama 3
-https://llama.meta.com/docs/model-cards-and-prompt-formats/meta-llama-3/
+---
 
-https://huggingface.co/posts/santiviquez/138523411387083
+## Training
+
+To train the model, follow these steps:
+
+1. Open the `run_training.sh` script.
+2. Set up the required paths (detailed in the script comments).
+3. Run the script to start training in a TMUX session.
+
+```bash
+./run_training.sh
+```
+
+### Monitoring Training Progress
+To attach to the TMUX session and monitor progress:
+```bash
+tmux a -t RUN_NAME
+```
+Replace `RUN_NAME` with the name of your session. To list all active TMUX sessions, use:
+```bash
+tmux ls
+```
+
+---
+
+## Inference
+
+After training, run inference using the following steps:
+
+1. Open the `run_inference.sh` script.
+2. Set up the required paths (detailed in the script comments).
+3. Run the script in a TMUX session.
+
+```bash
+./run_inference.sh
+```
+
+---
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Submit a pull request with a detailed description of your changes.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+Here’s an updated and polished version of your **Contact** section, along with some additional suggestions to make it more professional and user-friendly:
+
+---
+
+## Contact
+
+For questions, feedback, or collaboration opportunities, feel free to reach out:
+
+- **Telegram**: [@olg_smv](https://t.me/olg_smv)  
+- **Email**: [somov.ol.dm@gmail.com](mailto:somov.ol.dm@gmail.com)

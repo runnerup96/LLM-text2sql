@@ -137,23 +137,3 @@ if __name__ == "__main__":
 
 
 
-
-    # model_id = "/home/etutubalina/somov-od/llama3/Meta-Llama-3-8B-Instruct/hf_converted"
-    #
-    # pipeline = transformers.pipeline("text-generation", model=model_id, model_kwargs={"torch_dtype": torch.bfloat16},
-    #                                  device_map="auto")
-    # print(pipeline("Hey how are you doing today? Answer in Russian"))
-
-    # # Example of using the fine-tuned model
-    # messages = [
-    #     {"role": "system", "content": "You are a helpful medical chatbot."},
-    #     {"role": "user", "content": "I have a headache and fever."},
-    # ]
-    #
-    # input_ids = tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").to(
-    #     model.device)
-    # outputs = model.generate(input_ids, max_new_tokens=256, do_sample=True, temperature=0.7)
-    # response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
-    # print(response)
-
-

@@ -138,15 +138,6 @@ if __name__ == "__main__":
     # The assistant answer is ignored during loss calculation
     collator = DataCollatorForCompletionOnlyLM(response_template_ids, tokenizer=tokenizer)
 
-    # import text2sql_dataset
-    # from torch.utils.data import DataLoader
-    # ds_train = text2sql_dataset.Text2SQLDataset(training_sft_dataset, tokenizer, args.max_seq_length, 'cuda')
-    # dl_train = DataLoader(ds_train, batch_size=args.per_device_train_batch_size, collate_fn=collator)
-    #
-    # tokenizer.padding_side = "left"
-    # ds_test = text2sql_dataset.Text2SQLDataset(testing_sft_dataset, tokenizer, args.max_seq_length, 'cuda')
-    # dl_test = DataLoader(ds_test, batch_size=args.per_device_train_batch_size)
-
 
     trainer = SFTTrainer(
         model=model,

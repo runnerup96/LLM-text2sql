@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# (144) Path to finetuned model in experiements folder
 llama3_model_path="/home/somov/text2sql_llama_3/experiments/pauq_pauq_xsp_s1_lora_v4/final_checkpoints"
 project_path="/home/somov/text2sql_llama_3"
 data_dir="data"
@@ -24,7 +25,7 @@ fi
 tables_path="$project_path/$data_dir/$dataset_name/tables.json"
 log_dir="$saving_path/training_logs"
 
-input_seq_length=1024
+input_seq_length=768
 output_seq_length=256
 eval_batch_size=12
 
@@ -45,3 +46,4 @@ tmux send-keys -t $run_name "CUDA_VISIBLE_DEVICES='$CUDA_DEVICE_NUMBER' /home/so
 
 tmux a -t $run_name
 
+# the result predictions will be in saving path

@@ -155,16 +155,5 @@ if __name__ == "__main__":
     print('Avg prompt length: ', round(avg_prompt_length / len(sft_dataset), 2))
     print('Number of max length samples: ', number_of_max_length)
 
-    # result_list = []
-    # for idx in range(len(sft_dataset)):
-    #     result_list.append(sft_dataset[idx]['text'])
-
-    # json.dump(result_list, open("/Users/somov-od/Documents/phd/projects/text2sql_llama_3/data/pauq/train_sft.json", 'w'),
-    #           ensure_ascii=False, indent=4)
-
-
-    # ehrsql_path = "/Users/somov-od/Documents/phd/projects/text2sql_llama_3/data/ehrsql/train"
-    # ehrsql_tables_path = "/Users/somov-od/Documents/phd/projects/text2sql_llama_3/data/ehrsql/tables.json"
-    # sft_dataset = create_ehrsql_sft_dataset(ehrsql_path, ehrsql_tables_path, phase="test")
 
 

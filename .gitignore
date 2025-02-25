@@ -7,3 +7,4 @@ __pycache__/
 test_llama_3.py
 infer_on_cluster.sh
 train_on_cluster.sh
+test_script.sh
