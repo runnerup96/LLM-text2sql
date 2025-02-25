@@ -15,7 +15,9 @@ This repository contains the code for training and inference of the LLama8 model
 
 ## Setup
 
-To set up the environment, ensure you have **Python 3.10** installed. Install the required libraries using the provided `requirements.txt` file. Better to set up env with **Miniconda**.
+To set up the environment, ensure you have **Python 3.10** installed. 
+At first, install PyTorch with your designated CUDA version.
+Then install the required libraries using the provided `requirements.txt` file. Better to set up env with **Miniconda**.
 
 ```bash
 pip install -r requirements.txt
@@ -77,22 +79,9 @@ After training, run inference using the following steps:
 
 ---
 
-## Contributing
-
-We welcome contributions! If you'd like to contribute, please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Submit a pull request with a detailed description of your changes.
-
----
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-Here’s an updated and polished version of your **Contact** section, along with some additional suggestions to make it more professional and user-friendly:
 
 ---
 
